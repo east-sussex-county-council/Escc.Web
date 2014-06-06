@@ -70,7 +70,7 @@ namespace EsccWebTeam.Data.Web
         /// <param name="policyNames">The policy names to append, used as configuration keys.</param>
         public void AppendFromConfig(params string[] policyNames)
         {
-            var contentSecurity = ConfigurationManager.GetSection("Escc.Data.Web/ContentSecurityPolicy") as NameValueCollection;
+            var contentSecurity = ConfigurationManager.GetSection("EsccWebTeam.Data.Web/ContentSecurityPolicy") as NameValueCollection;
             if (contentSecurity == null) return;
 
             foreach (var policyName in policyNames)
