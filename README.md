@@ -15,3 +15,4 @@ Features include:
 * Shortening URLs into a version more suitable for link text
 * Protecting URLs from being tampered with
 * Giving URLs an expiry date
+* Applying a [content security policy](ContentSecurityPolicy.md)

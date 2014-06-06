@@ -69,6 +69,8 @@
     <Reference Include="system.web" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContentSecurityPolicyModule.cs" />
+    <Compile Include="ContentSecurityPolicy.cs" />
     <Compile Include="Cors.cs" />
     <Compile Include="EnforceHostModule.cs" />
     <Compile Include="EnforceProtocolModule.cs" />
@@ -78,7 +80,7 @@
     <Compile Include="Iri.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Sandcastle.shfbproj" />
+    <Content Include=".gitignore" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -97,9 +99,19 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="LICENSE.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ContentSecurityPolicy.md" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if "$(ConfigurationName)"=="Release" ( if exist "C:\Program Files\EsccWebTeam.SandcastleBuilder\EsccWebTeam.SandcastleBuilder.exe" "C:\Program Files\EsccWebTeam.SandcastleBuilder\EsccWebTeam.SandcastleBuilder.exe" "$(ProjectName)" "$(ProjectDir)Sandcastle.shfbproj" )</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
