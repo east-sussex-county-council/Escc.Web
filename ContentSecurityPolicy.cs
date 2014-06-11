@@ -16,11 +16,33 @@ namespace EsccWebTeam.Data.Web
         private readonly Dictionary<string, IList> _parsedPolicy = new Dictionary<string, IList>();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ContentSecurityPolicy"/> class.
+        /// Initializes a new instance of the <see cref="ContentSecurityPolicy" /> class.
         /// </summary>
-        public ContentSecurityPolicy()
+        /// <param name="url">The URL.</param>
+        public ContentSecurityPolicy(Uri url)
         {
-            AppendFromConfig("Default");
+            if (!IsExcludedUrl(url))
+            {
+                AppendFromConfig("Default");
+            }
+        }
+
+        private bool IsExcludedUrl(Uri url)
+        {
+            var contentSecurity = ConfigurationManager.GetSection("EsccWebTeam.Data.Web/ContentSecurityPolicy") as NameValueCollection;
+            if (contentSecurity == null) return false;
+            if (String.IsNullOrEmpty(contentSecurity["None"])) return false;
+
+            var excluded = contentSecurity["None"].Split(new[] {';'}, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var excludedUrl in excluded)
+            {
+                if (url.AbsolutePath.StartsWith(excludedUrl, StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         /// <summary>

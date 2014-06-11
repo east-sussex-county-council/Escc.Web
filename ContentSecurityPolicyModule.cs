@@ -28,7 +28,7 @@ namespace EsccWebTeam.Data.Web
 
         void context_BeginRequest(object sender, EventArgs e)
         {
-            var contentSecurity = new ContentSecurityPolicy();
+            var contentSecurity = new ContentSecurityPolicy(HttpContext.Current.Request.Url);
             contentSecurity.UpdateHeader(HttpContext.Current.Response);
         }
 
