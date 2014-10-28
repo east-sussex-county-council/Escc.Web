@@ -76,6 +76,7 @@
     <Compile Include="EnforceProtocolModule.cs" />
     <Compile Include="Html.cs" />
     <Compile Include="Http.cs" />
+    <Compile Include="InternetExplorerCompatibilityModeModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Iri.cs" />
   </ItemGroup>
@@ -107,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentSecurityPolicy.md" />
+    <None Include="InternetExplorerCompatibilityMode.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

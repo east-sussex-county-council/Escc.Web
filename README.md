@@ -16,3 +16,4 @@ Features include:
 * Protecting URLs from being tampered with
 * Giving URLs an expiry date
 * Applying a [content security policy](ContentSecurityPolicy.md)
+* Managing [Internet Explorer Compatibility Mode](InternetExplorerCompatibilityMode.md)
