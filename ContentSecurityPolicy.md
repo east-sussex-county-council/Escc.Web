@@ -56,3 +56,5 @@ You can also exclude URLs from the default policy using a semi-colon-separated l
 		<add key="None" value="/not-this-folder;/not-this-file.aspx" />
 	  </ContentSecurityPolicy>
 	</Escc.Data.Web>
+
+As well as the default policy, another policy called `Dev` is always loaded if present. This allows a development setup to add extra permissions which do not have to be replicated in a live environment.

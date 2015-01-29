@@ -23,7 +23,7 @@ namespace EsccWebTeam.Data.Web
         {
             if (!IsExcludedUrl(url))
             {
-                AppendFromConfig("Default");
+                AppendFromConfig("Default", "Dev");
             }
         }
 
