@@ -61,17 +61,24 @@ namespace EsccWebTeam.Data.Web
             // RFC 2616 says it must be a different URI (otherwise you'll get a redirect loop)
             if (absoluteDestination.ToString() == request.Url.ToString()) throw new ArgumentException("The request and destination URIs are the same", "replacedByUrl");
 
-            response.Status = "301 Moved Permanently";
-            response.StatusCode = 301;
-            response.AddHeader("Location", absoluteDestination.ToString());
-
-            if (request.HttpMethod != "HEAD")
+            try
             {
-                // Use a minimal HTML5 document for the hypertext response, since few people will ever see it.
-                response.Write("<!DOCTYPE html><title>This page has moved</title><h1>This page has moved</h1><p>Please see <a href=\"" + absoluteDestination.ToString() + "\">" + absoluteDestination.ToString() + "</a> instead.</p>");
-            }
+                response.Status = "301 Moved Permanently";
+                response.StatusCode = 301;
+                response.AddHeader("Location", absoluteDestination.ToString());
 
-            response.End();
+                if (request.HttpMethod != "HEAD")
+                {
+                    // Use a minimal HTML5 document for the hypertext response, since few people will ever see it.
+                    response.Write("<!DOCTYPE html><title>This page has moved</title><h1>This page has moved</h1><p>Please see <a href=\"" + absoluteDestination.ToString() + "\">" + absoluteDestination.ToString() + "</a> instead.</p>");
+                }
+
+                response.End();
+            }
+            catch (ThreadAbortException)
+            {
+                Thread.ResetAbort();
+            }
         }
 
 
@@ -122,17 +129,24 @@ namespace EsccWebTeam.Data.Web
             // RFC 2616 says it must be a different URI (otherwise you'll get a redirect loop)
             if (absoluteDestination.ToString() == request.Url.ToString()) throw new ArgumentException("The request and destination URIs are the same", "destinationUrl");
 
-            response.Status = "303 See Other";
-            response.StatusCode = 303;
-            response.AddHeader("Location", absoluteDestination.ToString());
-
-            if (request.HttpMethod != "HEAD")
+            try
             {
-                // Use a minimal HTML5 document for the hypertext response, since few people will ever see it.
-                response.Write("<!DOCTYPE html><title>See another page</title><h1>See another page</h1><p>Please see <a href=\"" + absoluteDestination.ToString() + "\">" + absoluteDestination.ToString() + "</a> instead.</p>");
-            }
+                response.Status = "303 See Other";
+                response.StatusCode = 303;
+                response.AddHeader("Location", absoluteDestination.ToString());
 
-            response.End();
+                if (request.HttpMethod != "HEAD")
+                {
+                    // Use a minimal HTML5 document for the hypertext response, since few people will ever see it.
+                    response.Write("<!DOCTYPE html><title>See another page</title><h1>See another page</h1><p>Please see <a href=\"" + absoluteDestination.ToString() + "\">" + absoluteDestination.ToString() + "</a> instead.</p>");
+                }
+
+                response.End();
+            }
+            catch (ThreadAbortException)
+            {
+                Thread.ResetAbort();
+            }
         }
 
         /// <summary>
