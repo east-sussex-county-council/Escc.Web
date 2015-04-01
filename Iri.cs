@@ -30,9 +30,12 @@ namespace EsccWebTeam.Data.Web
         {
             // Check arguments
             if (relativeUri == null) throw new ArgumentNullException("relativeUri");
-            if (relativeUri.IsAbsoluteUri) return relativeUri;
             if (baseUri == null) throw new ArgumentNullException("baseUri");
             if (!baseUri.IsAbsoluteUri) throw new ArgumentException("The base URI must be an absolute URI", "baseUri");
+
+            // Check whether the URI is protocol-relative or absolute already
+            relativeUri = HandleProtocolRelativeUrl(relativeUri, baseUri);
+            if (relativeUri.IsAbsoluteUri) return relativeUri;
 
             // Split the relative URI into path and query, which the Uri object itself can't do.
             // The query string will include any fragment identifier as well, but it ends up in the right place so no need to separate it.
@@ -79,6 +82,25 @@ namespace EsccWebTeam.Data.Web
         }
 
         /// <summary>
+        /// System.Uri gets protocol-relative URLs wrong. This looks for a mis-interpreted protocol-relative URL and converts it to absolute
+        /// </summary>
+        /// <param name="relativeUri">The protocol-relative URI.</param>
+        /// <param name="baseUri">The base URI.</param>
+        /// <returns>Fixed URL, or the original URL if not protocol-relative</returns>
+        private static Uri HandleProtocolRelativeUrl(Uri relativeUri, Uri baseUri)
+        {
+            if (relativeUri == null) throw new ArgumentNullException("relativeUri");
+            if (baseUri == null) throw new ArgumentNullException("baseUri");
+            
+            // System.Uri sees protocol-relative URLs as file URIs, so look for that pattern before taking action
+            if (relativeUri.OriginalString.StartsWith(@"//", StringComparison.OrdinalIgnoreCase) && relativeUri.Scheme == "file")
+            {
+                relativeUri = new Uri(baseUri.Scheme + "://" + baseUri.Authority + relativeUri.ToString().Substring(6));
+            }
+            return relativeUri;
+        }
+
+        /// <summary>
         /// Makes a relative URI absolute, by combining it with an absolute URI to which it is relative.
         /// </summary>
         /// <param name="relativeUri">The relative URI.</param>
@@ -103,7 +125,7 @@ namespace EsccWebTeam.Data.Web
         {
             // If we can return without attempting to access HttpContext.Current then do so
             if (relativeUri == null) throw new ArgumentNullException("relativeUri");
-            if (relativeUri.IsAbsoluteUri) return relativeUri;
+            if (relativeUri.IsAbsoluteUri && !relativeUri.OriginalString.StartsWith(@"//", StringComparison.OrdinalIgnoreCase)) return relativeUri;
             return MakeAbsolute(relativeUri, HttpContext.Current.Request.Url, ignoreBaseUriQueryString);
         }
 
@@ -119,7 +141,7 @@ namespace EsccWebTeam.Data.Web
         {
             // If we can return without attempting to access HttpContext.Current then do so
             if (relativeUri == null) throw new ArgumentNullException("relativeUri");
-            if (relativeUri.IsAbsoluteUri) return relativeUri;
+            if (relativeUri.IsAbsoluteUri && !relativeUri.OriginalString.StartsWith(@"//", StringComparison.OrdinalIgnoreCase)) return relativeUri;
             return MakeAbsolute(relativeUri, HttpContext.Current.Request.Url);
         }
 
