@@ -77,7 +77,8 @@ namespace EsccWebTeam.Data.Web
             }
             catch (ThreadAbortException)
             {
-                Thread.ResetAbort();
+                // Just catch the expected exception. Don't call Thread.ResetAbort() because, 
+                // in an Umbraco context, it causes problems with updating the cache.
             }
         }
 
@@ -127,7 +128,10 @@ namespace EsccWebTeam.Data.Web
             var absoluteDestination = destinationUrl.IsAbsoluteUri ? destinationUrl : Iri.MakeAbsolute(destinationUrl);
 
             // RFC 2616 says it must be a different URI (otherwise you'll get a redirect loop)
-            if (absoluteDestination.ToString() == request.Url.ToString()) throw new ArgumentException("The request and destination URIs are the same", "destinationUrl");
+            if (absoluteDestination.ToString() == request.Url.ToString())
+            {
+                throw new ArgumentException("The request and destination URIs are the same", "destinationUrl");
+            }
 
             try
             {
@@ -145,7 +149,8 @@ namespace EsccWebTeam.Data.Web
             }
             catch (ThreadAbortException)
             {
-                Thread.ResetAbort();
+                // Just catch the expected exception. Don't call Thread.ResetAbort() because, 
+                // in an Umbraco context, it causes problems with updating the cache.
             }
         }
 
