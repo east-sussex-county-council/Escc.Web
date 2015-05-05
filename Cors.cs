@@ -24,12 +24,6 @@ namespace EsccWebTeam.Data.Web
             var requestOrigin = request.Headers["Origin"];
             if (String.IsNullOrEmpty(requestOrigin)) return;
 
-            // Not a cross-origin request - do nothing
-            // (You could trigger this with a crafted request eg Origin: http://some-other-origin/?endswith=http://currenthost, but
-            //  it doesn't result in any elevation of privilege - a cross-origin request is still denied - so that's fine.
-            //  This is just about not having to remember to include the current host in the allowed hosts list.)
-            if (requestOrigin.EndsWith("://" + request.Url.Host)) return;
-
             // Is the origin in the list of allowed origins?
             var allowedOrigin = new List<string>(allowedOrigins).Contains(requestOrigin.ToLowerInvariant());
 
