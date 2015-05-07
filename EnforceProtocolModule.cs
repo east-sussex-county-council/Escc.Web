@@ -43,32 +43,29 @@ namespace EsccWebTeam.Data.Web
         {
             this.errors.Clear();
 
-            string folderName = GetCurrentFolder();
-
-            if (String.IsNullOrEmpty(folderName)) folderName = "default";
-
             NameValueCollection securityConfig = ConfigurationManager.GetSection("EsccWebTeam.Data.Web/EnforceProtocolModule") as NameValueCollection;
             if (securityConfig == null) return;
 
             // If there's a specific setting for this folder
-            if (securityConfig[folderName] != null)
+            string folderName = GetCurrentFolder();
+            if (!String.IsNullOrEmpty(folderName) && securityConfig[folderName] != null)
             {
                 this.errors.Add("using config setting for " + folderName + ", which is " + securityConfig[folderName].ToLowerInvariant());
-                RedirectProtocol(securityConfig[folderName].ToLowerInvariant());
+                RedirectProtocol(securityConfig[folderName].ToLowerInvariant(), securityConfig);
             }
             else
             {
                 // Otherwise apply the default
                 string defaultScheme = (securityConfig["default"] != null) ? securityConfig["default"].ToLowerInvariant() : Uri.UriSchemeHttp;
                 this.errors.Add("using default scheme " + defaultScheme);
-                RedirectProtocol(defaultScheme);
+                RedirectProtocol(defaultScheme, securityConfig);
             }
 
         }
 
-        private void ShowErrors()
+        private void ShowErrors(NameValueCollection securityConfig)
         {
-            if (HttpContext.Current.Request.QueryString["url"] != null)
+            if (!String.IsNullOrEmpty(securityConfig["debug"]) && securityConfig["debug"].ToUpperInvariant() == "TRUE")
             {
                 string[] messages = new string[this.errors.Count];
                 this.errors.CopyTo(messages);
@@ -82,7 +79,8 @@ namespace EsccWebTeam.Data.Web
         /// Swops between HTTPS and HTTP if needed
         /// </summary>
         /// <param name="desiredProtocol">The desired protocol.</param>
-        private void RedirectProtocol(string desiredProtocol)
+        /// <param name="securityConfig">The web.config settings.</param>
+        private void RedirectProtocol(string desiredProtocol, NameValueCollection securityConfig)
         {
             // Really weird stuff happening here when coming via an ISA server
 
@@ -98,7 +96,7 @@ namespace EsccWebTeam.Data.Web
 
 
             this.errors.Add("User typed " + HttpContext.Current.Request.Url.ToString());
-            this.errors.Add("Actual URL is " + HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Host + "/" + HttpContext.Current.Request.Url.PathAndQuery);
+            this.errors.Add("Actual URL is " + HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Authority + HttpContext.Current.Request.Url.PathAndQuery);
 
             // Is it the right scheme?
             if (desiredProtocol != HttpContext.Current.Request.Url.Scheme)
@@ -109,25 +107,25 @@ namespace EsccWebTeam.Data.Web
                 if (desiredProtocol == Uri.UriSchemeHttps)
                 {
                     this.errors.Add("Redirect to https");
-                    ShowErrors();
+                    ShowErrors(securityConfig);
                     HttpContext.Current.Response.Redirect(Uri.UriSchemeHttps + urlWithoutScheme);
                     HttpContext.Current.Response.End();
                 }
                 else if (desiredProtocol == Uri.UriSchemeHttp)
                 {
                     this.errors.Add("Redirect to http");
-                    ShowErrors();
+                    ShowErrors(securityConfig);
                     HttpContext.Current.Response.Redirect(Uri.UriSchemeHttp + urlWithoutScheme);
                     HttpContext.Current.Response.End();
                 }
 
                 this.errors.Add("No match, but no redirect - shouldn't get here");
-                ShowErrors();
+                ShowErrors(securityConfig);
             }
             else
             {
                 this.errors.Add("Protocols already match");
-                ShowErrors();
+                ShowErrors(securityConfig);
             }
         }
 
