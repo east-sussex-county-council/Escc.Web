@@ -8,6 +8,7 @@ namespace EsccWebTeam.Data.Web
     /// <summary>
     /// Methods for working with elements of HTML
     /// </summary>
+    [Obsolete("Use the Escc.Html NuGet package")]    
     public static class Html
     {
         /// <summary>
