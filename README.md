@@ -13,7 +13,7 @@ Features include:
 * Resolving relative URLs into absolute URLs
 * Splitting and combining the parts of a URL
 * Shortening URLs into a version more suitable for link text
-* Protecting URLs from being tampered with
+* [Protecting a querystring from being tampered with](ProtectedQueryString.md)
 * Giving URLs an expiry date
-* Applying a [content security policy](ContentSecurityPolicy.md)
-* Managing [Internet Explorer Compatibility Mode](InternetExplorerCompatibilityMode.md)
+* [Applying a content security policy](ContentSecurityPolicy.md)
+* [Managing Internet Explorer Compatibility Mode](InternetExplorerCompatibilityMode.md)
