@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.Configuration;
 using System.Text;
 using System.Web;
+using System.Web.UI.WebControls;
 
 namespace EsccWebTeam.Data.Web
 {
@@ -23,13 +24,21 @@ namespace EsccWebTeam.Data.Web
         {
             if (!IsExcludedUrl(url))
             {
-                AppendFromConfig("Default", "Dev");
+                var contentSecurity = LoadConfigurationData();
+                if (contentSecurity != null && !String.IsNullOrEmpty(contentSecurity["Apply"]))
+                {
+                    AppendFromConfig(contentSecurity["Apply"].Split(';'));
+                }
+                else
+                {
+                    AppendFromConfig("Default", "Dev");                    
+                }
             }
         }
 
         private bool IsExcludedUrl(Uri url)
         {
-            var contentSecurity = ConfigurationManager.GetSection("EsccWebTeam.Data.Web/ContentSecurityPolicy") as NameValueCollection;
+            var contentSecurity = LoadConfigurationData();
             if (contentSecurity == null) return false;
             if (String.IsNullOrEmpty(contentSecurity["None"])) return false;
 
@@ -43,6 +52,12 @@ namespace EsccWebTeam.Data.Web
             }
 
             return false;
+        }
+
+        private static NameValueCollection LoadConfigurationData()
+        {
+            var contentSecurity = ConfigurationManager.GetSection("EsccWebTeam.Data.Web/ContentSecurityPolicy") as NameValueCollection;
+            return contentSecurity;
         }
 
         /// <summary>
@@ -92,7 +107,7 @@ namespace EsccWebTeam.Data.Web
         /// <param name="policyNames">The policy names to append, used as configuration keys.</param>
         public void AppendFromConfig(params string[] policyNames)
         {
-            var contentSecurity = ConfigurationManager.GetSection("EsccWebTeam.Data.Web/ContentSecurityPolicy") as NameValueCollection;
+            var contentSecurity = LoadConfigurationData();
             if (contentSecurity == null) return;
 
             foreach (var policyName in policyNames)

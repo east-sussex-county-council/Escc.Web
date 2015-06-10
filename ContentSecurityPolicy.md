@@ -3,6 +3,7 @@ Content Security Policy
 
 A [Content Security Policy](http://www.html5rocks.com/en/tutorials/security/content-security-policy/) restricts which resources a web page can load, protecting against risks such as cross-site scripting.
 
+## Apply a default policy
 Apply a default policy across a website using an HTTP module:
 
 **web.config**
@@ -25,7 +26,40 @@ Apply a default policy across a website using an HTTP module:
 	    </modules>
 	  </system.webServer>
 
-This can be customised for a specific page by appending a policy with extra privileges:
+You can exclude URLs from the default policy using a semi-colon-separated list for a policy of 'None':
+
+**web.config**
+
+	<Escc.Data.Web>
+	  <ContentSecurityPolicy>
+	    <add key="Default" value="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'" />
+		<add key="None" value="/not-this-folder;/not-this-file.aspx" />
+	  </ContentSecurityPolicy>
+	</Escc.Data.Web>
+
+As well as the default policy, another policy called `Dev` is always loaded if present. This allows a development setup to add extra permissions which do not have to be replicated in a live environment.
+
+## Apply a custom policy using web.config
+
+You can create a special policy of `Apply` which is a semi-colon-separated list of other policies. The default value of `Apply` is `Default;Dev` as described above. You can customise this to append a policy with extra privileges:
+
+**web.config**
+
+	  <Escc.Data.Web>
+	    <ContentSecurityPolicy>
+	      <add key="Default" value="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'" />
+		  <add key="GoogleApi" value="script-src https://apis.google.com" />
+		  <add key="Apply" value="Default;GoogleApi" />
+	    </ContentSecurityPolicy>
+	  </Escc.Data.Web>
+
+The 'GoogleApi' policy is added to the 'Default' policy, creating the following content security policy:
+
+	default-src 'none'; script-src 'self' https://apis.google.com; style-src 'self'; img-src 'self'
+
+
+## Apply a custom policy using code
+The default policy can be customised for a specific page by appending a policy with extra privileges:
 
 **web.config**
 
@@ -46,15 +80,3 @@ The 'GoogleApi' policy is added to the 'Default' policy, creating the following 
 
 	default-src 'none'; script-src 'self' https://apis.google.com; style-src 'self'; img-src 'self'
 
-You can also exclude URLs from the default policy using a semi-colon-separated list for a policy of 'None':
-
-**web.config**
-
-	<Escc.Data.Web>
-	  <ContentSecurityPolicy>
-	    <add key="Default" value="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'" />
-		<add key="None" value="/not-this-folder;/not-this-file.aspx" />
-	  </ContentSecurityPolicy>
-	</Escc.Data.Web>
-
-As well as the default policy, another policy called `Dev` is always loaded if present. This allows a development setup to add extra permissions which do not have to be replicated in a live environment.
