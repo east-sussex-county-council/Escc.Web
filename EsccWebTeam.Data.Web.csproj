@@ -109,6 +109,7 @@
   <ItemGroup>
     <None Include="ContentSecurityPolicy.md" />
     <None Include="InternetExplorerCompatibilityMode.md" />
+    <None Include="ExpireUrls.md" />
     <None Include="ProtectedQueryString.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -14,6 +14,6 @@ Features include:
 * Splitting and combining the parts of a URL
 * Shortening URLs into a version more suitable for link text
 * [Protecting a querystring from being tampered with](ProtectedQueryString.md)
-* Giving URLs an expiry date
+* [Giving URLs an expiry date](ExpireURLs.md)
 * [Applying a content security policy](ContentSecurityPolicy.md)
 * [Managing Internet Explorer Compatibility Mode](InternetExplorerCompatibilityMode.md)
