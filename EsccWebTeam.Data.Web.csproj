@@ -77,8 +77,10 @@
     <Compile Include="Html.cs" />
     <Compile Include="Http.cs" />
     <Compile Include="InternetExplorerCompatibilityModeModule.cs" />
+    <Compile Include="ICorsAllowedOriginsProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Iri.cs" />
+    <Compile Include="ConfigurationCorsAllowedOriginsProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
@@ -108,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentSecurityPolicy.md" />
+    <None Include="Cors.md" />
     <None Include="InternetExplorerCompatibilityMode.md" />
     <None Include="ExpireUrls.md" />
     <None Include="ProtectedQueryString.md" />

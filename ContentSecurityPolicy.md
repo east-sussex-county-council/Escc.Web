@@ -9,16 +9,16 @@ Apply a default policy across a website using an HTTP module:
 **web.config**
 
 	  <configSections>
-	    <sectionGroup name="Escc.Data.Web">
+	    <sectionGroup name="EsccWebTeam.Data.Web">
 	      <section name="ContentSecurityPolicy" type="System.Configuration.NameValueSectionHandler, System, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
 	    </sectionGroup>
 	  </configSections>
 	
-	  <Escc.Data.Web>
+	  <EsccWebTeam.Data.Web>
 	    <ContentSecurityPolicy>
 	      <add key="Default" value="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'" />
 	    </ContentSecurityPolicy>
-	  </Escc.Data.Web>
+	  </EsccWebTeam.Data.Web>
 	
 	  <system.webServer>
 	    <modules>
@@ -30,12 +30,12 @@ You can exclude URLs from the default policy using a semi-colon-separated list f
 
 **web.config**
 
-	<Escc.Data.Web>
+	<EsccWebTeam.Data.Web>
 	  <ContentSecurityPolicy>
 	    <add key="Default" value="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'" />
 		<add key="None" value="/not-this-folder;/not-this-file.aspx" />
 	  </ContentSecurityPolicy>
-	</Escc.Data.Web>
+	</EsccWebTeam.Data.Web>
 
 As well as the default policy, another policy called `Dev` is always loaded if present. This allows a development setup to add extra permissions which do not have to be replicated in a live environment.
 
@@ -45,13 +45,13 @@ You can create a special policy of `Apply` which is a semi-colon-separated list 
 
 **web.config**
 
-	  <Escc.Data.Web>
+	  <EsccWebTeam.Data.Web>
 	    <ContentSecurityPolicy>
 	      <add key="Default" value="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'" />
 		  <add key="GoogleApi" value="script-src https://apis.google.com" />
 		  <add key="Apply" value="Default;GoogleApi" />
 	    </ContentSecurityPolicy>
-	  </Escc.Data.Web>
+	  </EsccWebTeam.Data.Web>
 
 The 'GoogleApi' policy is added to the 'Default' policy, creating the following content security policy:
 
@@ -63,12 +63,12 @@ The default policy can be customised for a specific page by appending a policy w
 
 **web.config**
 
-	  <Escc.Data.Web>
+	  <EsccWebTeam.Data.Web>
 	    <ContentSecurityPolicy>
 	      <add key="Default" value="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'" />
 		  <add key="GoogleApi" value="script-src https://apis.google.com" />
 	    </ContentSecurityPolicy>
-	  </Escc.Data.Web>
+	  </EsccWebTeam.Data.Web>
 
 **C#**
 
