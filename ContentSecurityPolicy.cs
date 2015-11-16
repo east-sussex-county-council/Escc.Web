@@ -67,7 +67,7 @@ namespace EsccWebTeam.Data.Web
         /// <param name="replaceExisting">if set to <c>true</c> replace the existing policy; if <c>false</c> append the new settings to it.</param>
         public void ParsePolicy(string policy, bool replaceExisting = false)
         {
-            if (String.IsNullOrEmpty(policy)) throw new ArgumentNullException(policy);
+            if (String.IsNullOrEmpty(policy)) return;
 
             if (replaceExisting) _parsedPolicy.Clear();
 
