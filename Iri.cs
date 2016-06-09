@@ -197,7 +197,7 @@ namespace EsccWebTeam.Data.Web
                 var pos = cutQuery.IndexOf("?", StringComparison.Ordinal);
                 if (pos > -1)
                 {
-                    urlString = new StringBuilder(cutQuery.Remove(pos + 1) + "…");
+                    urlString = new StringBuilder(cutQuery.Remove(pos) + "?…");
                 }
             }
 
