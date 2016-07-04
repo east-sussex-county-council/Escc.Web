@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Web;
 
-namespace EsccWebTeam.Data.Web
+namespace Escc.Web
 {
     /// <summary>
     /// Cross-origin resource sharing (CORS) allows JavaScript on a web page to make XMLHttpRequests to another domain, not the domain the JavaScript originated from

@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Web;
 
-namespace EsccWebTeam.Data.Web
+namespace Escc.Web
 {
     /// <summary>
     /// Methods for working with elements of the HTTP web protocol
@@ -308,98 +306,7 @@ namespace EsccWebTeam.Data.Web
         }
 
         #endregion
-
-        #region Work with MIME types
-
-        /// <summary>
-        /// Returns the best MIME type for a response, based on the user agent's preferences expressed in the HTTP Accept header, and the MIME types the page is able to serve
-        /// </summary>
-        /// <param name="acceptTypesHeader">The HTTP Accept header, accessible using the <c>AcceptTypes</c> property of the current <seealso cref="System.Web.HttpRequest"/> (for example <c>System.Web.HttpContext.Current.Request.AcceptTypes</c>).</param>
-        /// <param name="supportedMimeTypes">The MIME types the page is able to serve, in the order of our preference in case the user agent doesn't mind.</param>
-        /// <param name="requireExplicitSupportFor">A subset of MIME types from the <c>mimeTypesAvailable</c> list which should only be used if the user-agent explicitly states support, not just using a wildcard.</param>
-        /// <returns>Best MIME type to serve</returns>
-        /// <exception cref="ArgumentNullException">Thrown if no available MIME types are specified</exception>
-        /// <exception cref="ArgumentException">Thrown if only one available MIME types is specified (there's no point deciding if there's only one option)</exception>
-        /// <remarks>The combination of <c>supportedMimeTypes</c> and <c>requireExplicitSupportFor</c> allows us to cope with user agents that say they'll accept anything,
-        /// but are really better off with a fallback option rather than a newer standard they can't handle. For example, we might rather serve XHTML to Firefox because 
-        /// it says explicitly that it supports XHTML, but we'd rather send HTML to IE8 because, even though it says it accepts anything, we know it doesn't support XHTML properly.</remarks>
-        public static string PreferredMimeType(string[] acceptTypesHeader, string[] supportedMimeTypes, string[] requireExplicitSupportFor)
-        {
-            if (supportedMimeTypes == null) throw new ArgumentNullException("supportedMimeTypes", "You must specify at least two MIME types which can be served");
-            if (supportedMimeTypes.Length < 2) throw new ArgumentException("You must specify at least two MIME types which can be served", "supportedMimeTypes");
-
-            // Put the MIME types that we can offer into a dictionary, so we can track the user agent's preferences for those types
-            Dictionary<string, decimal> candidateMimeTypes = new Dictionary<string, decimal>();
-            foreach (string mimeType in supportedMimeTypes) candidateMimeTypes.Add(mimeType, 0);
-
-            // And put the explicit-only types into a List so we have access to the Contains method
-            List<string> explicitSupportOnly = new List<string>(requireExplicitSupportFor);
-
-            // Check the accept header to work out the user agent's preferences for our available MIME types.
-            // Ignore anything they want that we can't provide.
-            if (acceptTypesHeader != null)
-            {
-                CultureInfo americanCulture = new CultureInfo("en-US"); // since HTTP is probably based on that
-
-                foreach (string acceptedMimeType in acceptTypesHeader)
-                {
-                    if (String.IsNullOrEmpty(acceptedMimeType)) continue;
-
-                    foreach (string supportedMimeType in supportedMimeTypes)
-                    {
-                        // Deal first with the simplest syntax, which is just the mime type
-                        if (acceptedMimeType == supportedMimeType)
-                        {
-                            candidateMimeTypes[supportedMimeType] = 1;
-                            continue;
-                        }
-
-                        // If not exact match, but it starts with a match and semi-colon, it has params
-                        if (acceptedMimeType.StartsWith(supportedMimeType + ";", false, americanCulture))
-                        {
-                            string[] segments = acceptedMimeType.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-
-                            if (segments[0] == supportedMimeType)
-                            {
-                                candidateMimeTypes[supportedMimeType] = 1;
-                                for (int i = 1; i < segments.Length; i++)
-                                {
-                                    if (segments[i].Trim().StartsWith("q=", false, americanCulture)) candidateMimeTypes[supportedMimeType] = Decimal.Parse(segments[i].Trim().Substring(2), americanCulture);
-                                }
-                            }
-                        }
-
-                        // TODO: This won't cope with user agents saying wildcard types are acceptable. Should test for those here.
-                    }
-                }
-            }
-
-            // Look at the MIME types we want to serve. If all's equal choose our first preference. But if user prefers one of our backup options, choose that.
-            // Note that this can lead to recommending a format the user can't handle, if they can't handle any of the formats we provide.
-
-            // Start by setting preference to values that should definitely be beaten
-            string preferredMimeType = String.Empty;
-            decimal preferenceToBeat = -1;
-
-            foreach (string mimeType in candidateMimeTypes.Keys)
-            {
-                if (candidateMimeTypes[mimeType] > preferenceToBeat)
-                {
-                    // preference of 0 indicates that the user agent didn't explicitly state support, 
-                    // so if it's 0 check that we don't require explicit support for that MIME type
-                    if (candidateMimeTypes[mimeType] > 0 || !explicitSupportOnly.Contains(mimeType))
-                    {
-                        preferredMimeType = mimeType;
-                        preferenceToBeat = candidateMimeTypes[mimeType];
-                    }
-                }
-            }
-
-            return preferredMimeType;
-        }
-
-        #endregion // Work with MIME types
-
+        
         #region HTTP caching
 
         /// <summary>

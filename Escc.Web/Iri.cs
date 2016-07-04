@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
@@ -8,7 +7,8 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
-namespace EsccWebTeam.Data.Web
+
+namespace Escc.Web
 {
     /// <summary>
     /// Methods for working with the Internationalized Resource Identifier (IRI) standard, which includes URIs and URLs

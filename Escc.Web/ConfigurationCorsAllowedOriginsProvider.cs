@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
 
-namespace EsccWebTeam.Data.Web
+namespace Escc.Web
 {
     /// <summary>
     /// Gets configuration for the remote master page from web.config

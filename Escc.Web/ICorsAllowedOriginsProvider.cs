@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace EsccWebTeam.Data.Web
+namespace Escc.Web
 {
     /// <summary>
     /// Provides access to a list of allowed origins for CORS requests.

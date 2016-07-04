@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web;
 
-namespace EsccWebTeam.Data.Web
+namespace Escc.Web
 {
     /// <summary>
     /// HTTP module to apply a default content security policy, loaded from web.config. See <see cref="ContentSecurityPolicy" /> for details.

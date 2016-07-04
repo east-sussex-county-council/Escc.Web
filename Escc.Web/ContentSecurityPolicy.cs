@@ -5,9 +5,8 @@ using System.Collections.Specialized;
 using System.Configuration;
 using System.Text;
 using System.Web;
-using System.Web.UI.WebControls;
 
-namespace EsccWebTeam.Data.Web
+namespace Escc.Web
 {
     /// <summary>
     /// A Content Security Policy restricts which resources a web page can load, protecting against risks such as cross-site scripting.
