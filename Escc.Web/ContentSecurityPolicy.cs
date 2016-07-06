@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Web;
 
@@ -16,60 +17,22 @@ namespace Escc.Web
         private readonly Dictionary<string, IList> _parsedPolicy = new Dictionary<string, IList>();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ContentSecurityPolicy" /> class.
+        /// Appends a new Content Security Policy to the existing policy, and returns the updated policy.
         /// </summary>
-        /// <param name="url">The URL.</param>
-        public ContentSecurityPolicy(Uri url)
+        /// <param name="policy">The policy.</param>
+        /// <returns></returns>
+        public ContentSecurityPolicy AppendPolicy(string policy)
         {
-            if (!IsExcludedUrl(url))
-            {
-                var contentSecurity = LoadConfigurationData();
-                if (contentSecurity != null && !String.IsNullOrEmpty(contentSecurity["Apply"]))
-                {
-                    AppendFromConfig(contentSecurity["Apply"].Split(';'));
-                }
-                else
-                {
-                    AppendFromConfig("Default", "Dev");                    
-                }
-            }
-        }
-
-        private bool IsExcludedUrl(Uri url)
-        {
-            var contentSecurity = LoadConfigurationData();
-            if (contentSecurity == null) return false;
-            if (String.IsNullOrEmpty(contentSecurity["None"])) return false;
-
-            var excluded = contentSecurity["None"].Split(new[] {';'}, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var excludedUrl in excluded)
-            {
-                if (url.AbsolutePath.StartsWith(excludedUrl, StringComparison.OrdinalIgnoreCase))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        private static NameValueCollection LoadConfigurationData()
-        {
-            var contentSecurity = ConfigurationManager.GetSection("EsccWebTeam.Data.Web/ContentSecurityPolicy") as NameValueCollection;
-            return contentSecurity;
+            if (!String.IsNullOrEmpty(policy)) this.ParsePolicy(policy);
+            return this;
         }
 
         /// <summary>
-        /// Parses a content security policy HTTP header value.
+        /// Parses a Content Security Policy HTTP header value, and adds it to the existing policy.
         /// </summary>
         /// <param name="policy">The policy.</param>
-        /// <param name="replaceExisting">if set to <c>true</c> replace the existing policy; if <c>false</c> append the new settings to it.</param>
-        public void ParsePolicy(string policy, bool replaceExisting = false)
+        private void ParsePolicy(string policy)
         {
-            if (String.IsNullOrEmpty(policy)) return;
-
-            if (replaceExisting) _parsedPolicy.Clear();
-
             var directives = policy.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
             foreach (string directive in directives)
             {
@@ -98,34 +61,6 @@ namespace Escc.Web
             {
                 if (!_parsedPolicy[directiveType].Contains(source)) _parsedPolicy[directiveType].Add(source);
             }
-        }
-
-        /// <summary>
-        /// Gets a content security policy from the application configuration file, parses it and appends it to the current policy
-        /// </summary>
-        /// <param name="policyNames">The policy names to append, used as configuration keys.</param>
-        public void AppendFromConfig(params string[] policyNames)
-        {
-            var contentSecurity = LoadConfigurationData();
-            if (contentSecurity == null) return;
-
-            foreach (var policyName in policyNames)
-            {
-                if (!String.IsNullOrEmpty(contentSecurity[policyName]))
-                {
-                    this.ParsePolicy(contentSecurity[policyName]);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Updates the headers for an HTTP response to reflect the current policy.
-        /// </summary>
-        /// <param name="response">The response.</param>
-        public void UpdateHeader(HttpResponse response)
-        {
-            response.Headers.Remove("Content-Security-Policy");
-            response.AddHeader("Content-Security-Policy", this.ToString());
         }
 
         /// <summary>

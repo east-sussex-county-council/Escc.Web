@@ -4,7 +4,7 @@ using System.Web;
 namespace Escc.Web
 {
     /// <summary>
-    /// HTTP module to apply a default content security policy, loaded from web.config. See <see cref="ContentSecurityPolicy" /> for details.
+    /// HTTP module to apply a default Content Security Policy, loaded from web.config. 
     /// </summary>
     public class ContentSecurityPolicyModule : IHttpModule
     {
@@ -28,8 +28,34 @@ namespace Escc.Web
 
         void context_BeginRequest(object sender, EventArgs e)
         {
-            var contentSecurity = new ContentSecurityPolicy(HttpContext.Current.Request.Url);
-            contentSecurity.UpdateHeader(HttpContext.Current.Response);
+            // Read the policy settings from web.config
+            var config = new ContentSecurityPolicyFromConfig();
+            var policies = config.ReadPolicies();
+            if (policies == null) return;
+
+            // Support excluding URLs from the policy
+            var urlsToExclude = config.UrlsToExclude();
+            var filter = new ContentSecurityPolicyUrlFilter(HttpContext.Current.Request.Url, urlsToExclude);
+            if (!filter.ApplyPolicy()) return;
+
+            var contentSecurity = new ContentSecurityPolicyHeaders(HttpContext.Current.Response.Headers);
+
+            // Default to loading two policies, "Default" and "Local", but allow that to be overridden with a custom list
+            var defaultPolicyNames = config.DefaultPoliciesToApply();
+            if (defaultPolicyNames.Count > 0)
+            {
+                foreach (var policyName in defaultPolicyNames)
+                {
+                    contentSecurity.AppendPolicy(policies[policyName]);
+                }
+            }
+            else
+            {
+                contentSecurity.AppendPolicy(policies["Default"]).AppendPolicy(policies["Local"]);
+            }
+
+            // Apply the policy
+            contentSecurity.UpdateHeaders();
         }
 
         #endregion

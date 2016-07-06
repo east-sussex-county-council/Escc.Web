@@ -92,8 +92,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContentSecurityPolicyFromConfig.cs" />
+    <Compile Include="ContentSecurityPolicyHeaders.cs" />
     <Compile Include="ContentSecurityPolicyModule.cs" />
     <Compile Include="ContentSecurityPolicy.cs" />
+    <Compile Include="ContentSecurityPolicyUrlFilter.cs" />
     <Compile Include="Cors.cs" />
     <Compile Include="CorsPolicyFromConfig.cs" />
     <Compile Include="CorsPolicyFromConfigAttribute.cs" />
