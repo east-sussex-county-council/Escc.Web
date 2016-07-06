@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Net.Http.Headers;
 
@@ -30,7 +31,7 @@ namespace Escc.Web
         /// </summary>
         /// <param name="responseHeaders">The response headers.</param>
         /// <exception cref="System.ArgumentNullException"></exception>
-        public ContentSecurityPolicyHeaders(HttpHeaders responseHeaders)
+        public ContentSecurityPolicyHeaders(HttpResponseHeaders responseHeaders)
         {
             if (responseHeaders == null) throw new ArgumentNullException(nameof(responseHeaders));
             _responseHeadersObject = responseHeaders;
@@ -49,10 +50,13 @@ namespace Escc.Web
         {
             if (responseHeaders != null)
             {
-                var headers = responseHeaders.GetValues("Content-Security-Policy");
-                foreach (var header in headers)
+                IEnumerable<string> headers;
+                if (responseHeaders.TryGetValues("Content-Security-Policy", out headers))
                 {
-                    _policy.AppendPolicy(header);
+                    foreach (var header in headers)
+                    {
+                        _policy.AppendPolicy(header);
+                    }
                 }
             }
         }

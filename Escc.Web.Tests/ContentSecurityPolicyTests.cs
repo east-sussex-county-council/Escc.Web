@@ -33,9 +33,9 @@ namespace Escc.Web.Tests
         [TestMethod]
         public void UrlIsIncluded()
         {
-            var excludedUrls = new NameValueCollection()
+            var excludedUrls = new Uri[]
             {
-                {"None", "/example/excluded.html" }
+                new Uri("/example/excluded.html", UriKind.Relative)
             };
 
             var filter = new ContentSecurityPolicyUrlFilter(new Uri("https://www.example.org/example/included.html"), excludedUrls);
@@ -46,10 +46,10 @@ namespace Escc.Web.Tests
         [TestMethod]
         public void UrlIsExcluded()
         {
-            var excludedUrls = new NameValueCollection()
-            {
-                {"None", "/example/excluded.html" }
-            };
+            var excludedUrls = new Uri[]
+           {
+                new Uri("/example/excluded.html", UriKind.Relative)
+           };
 
             var filter = new ContentSecurityPolicyUrlFilter(new Uri("https://www.example.org/example/excluded.html"), excludedUrls);
 

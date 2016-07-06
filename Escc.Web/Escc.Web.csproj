@@ -97,7 +97,7 @@
     <Compile Include="ContentSecurityPolicyModule.cs" />
     <Compile Include="ContentSecurityPolicy.cs" />
     <Compile Include="ContentSecurityPolicyUrlFilter.cs" />
-    <Compile Include="Cors.cs" />
+    <Compile Include="CorsHeaders.cs" />
     <Compile Include="CorsPolicyFromConfig.cs" />
     <Compile Include="CorsPolicyFromConfigAttribute.cs" />
     <Compile Include="Http.cs" />

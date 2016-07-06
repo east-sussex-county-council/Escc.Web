@@ -21,7 +21,7 @@ namespace Escc.Web.Tests
             var policy = new CorsPolicy();
             policy.Origins.Add("https://example.org");
 
-            new Cors().ApplyPolicy(request, response, policy);
+            new CorsHeaders(request, response, policy).UpdateHeaders();
 
             Assert.IsTrue(response["Access-Control-Allow-Origin"] == "https://example.org");
         }
@@ -39,7 +39,7 @@ namespace Escc.Web.Tests
             var policy = new CorsPolicy();
             policy.Origins.Add("https://www.example.org"); // different domain
 
-            new Cors().ApplyPolicy(request, response, policy);
+            new CorsHeaders(request, response, policy).UpdateHeaders();
 
             Assert.IsNull(response["Access-Control-Allow-Origin"]);
         }

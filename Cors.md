@@ -22,7 +22,7 @@ Any code which returns a response which might be blocked by cross-origin rules c
 
     var context = HttpContext.Current;
 	var corsPolicy = new CorsPolicyFromConfig().CorsPolicy;
-	new Cors().ApplyPolicy(context.Request.Headers, context.Response.Headers, corsPolicy);
+	new CorsHeaders(context.Request.Headers, context.Response.Headers, corsPolicy).UpdateHeaders();
 
 In a Web API project the same syntax works, or you can enable CORS support in the `WebApiConfig` class:
 

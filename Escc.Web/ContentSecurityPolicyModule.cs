@@ -30,18 +30,18 @@ namespace Escc.Web
         {
             // Read the policy settings from web.config
             var config = new ContentSecurityPolicyFromConfig();
-            var policies = config.ReadPolicies();
+            var policies = config.Policies;
             if (policies == null) return;
 
             // Support excluding URLs from the policy
-            var urlsToExclude = config.UrlsToExclude();
+            var urlsToExclude = config.UrlsToExclude;
             var filter = new ContentSecurityPolicyUrlFilter(HttpContext.Current.Request.Url, urlsToExclude);
             if (!filter.ApplyPolicy()) return;
 
             var contentSecurity = new ContentSecurityPolicyHeaders(HttpContext.Current.Response.Headers);
 
             // Default to loading two policies, "Default" and "Local", but allow that to be overridden with a custom list
-            var defaultPolicyNames = config.DefaultPoliciesToApply();
+            var defaultPolicyNames = config.DefaultPoliciesToApply;
             if (defaultPolicyNames.Count > 0)
             {
                 foreach (var policyName in defaultPolicyNames)

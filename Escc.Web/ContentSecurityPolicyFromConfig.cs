@@ -11,13 +11,53 @@ namespace Escc.Web
     /// <summary>
     /// Reads Content Security Policy settings from web.config
     /// </summary>
-    public class ContentSecurityPolicyFromConfig 
+    public class ContentSecurityPolicyFromConfig
     {
+        private NameValueCollection _policies;
+        private IList<string> _defaultPoliciesToApply;
+        private IList<Uri> _urlsToExclude;
+
         /// <summary>
-        /// Reads the policies from web.config.
+        /// Content Security Policies which can be combined to create a composite policy
         /// </summary>
         /// <returns></returns>
-        public NameValueCollection ReadPolicies()
+        public NameValueCollection Policies
+        {
+            get
+            {
+                if (_policies == null) _policies = ReadPolicies();
+                return _policies;
+            }
+        }
+
+        /// <summary>
+        /// Gets the policy names to apply by default.
+        /// </summary>
+        /// <returns></returns>
+        public IList<string> DefaultPoliciesToApply
+        {
+            get
+            {
+                if (_defaultPoliciesToApply == null) _defaultPoliciesToApply = ReadDefaultPoliciesToApply();
+                return _defaultPoliciesToApply;
+            }
+        }
+
+        /// <summary>
+        /// Gets a list of URLs which should not have a Content Security Policy applied
+        /// </summary>
+        /// <returns></returns>
+        public IList<Uri> UrlsToExclude
+        {
+            get
+            {
+                if (_urlsToExclude == null) _urlsToExclude = ReadUrlsToExclude();
+                return _urlsToExclude;
+            }
+        } 
+
+
+        private NameValueCollection ReadPolicies()
         {
             // Support current and backwards-compatible configuration sections
             var contentSecurity = ConfigurationManager.GetSection("Escc.Web/ContentSecurityPolicies") as NameValueCollection;
@@ -25,10 +65,6 @@ namespace Escc.Web
             return contentSecurity;
         }
 
-        /// <summary>
-        /// Reads settings from web.config.
-        /// </summary>
-        /// <returns></returns>
         private NameValueCollection ReadSettings()
         {
             // Support current and backwards-compatible configuration sections
@@ -37,11 +73,7 @@ namespace Escc.Web
             return contentSecurity;
         }
 
-        /// <summary>
-        /// Gets the policy names to apply by default.
-        /// </summary>
-        /// <returns></returns>
-        public IList<string> DefaultPoliciesToApply()
+        private IList<string> ReadDefaultPoliciesToApply()
         {
             // Try current and backwards-compatible setting names
             var settings = ReadSettings();
@@ -55,11 +87,7 @@ namespace Escc.Web
             return new string[0];
         }
 
-        /// <summary>
-        /// Gets a list of URLs which should not have a Content Security Policy applied
-        /// </summary>
-        /// <returns></returns>
-        public IList<Uri> UrlsToExclude()
+       private IList<Uri> ReadUrlsToExclude()
         {
             // Try current and backwards-compatible setting names
             var settings = ReadSettings();

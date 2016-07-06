@@ -78,7 +78,7 @@ The default policy can be customised for a specific page by appending a policy w
 
 **C#**
 
-    var policies = new ContentSecurityPolicyFromConfig().ReadPolicies();
+    var policies = new ContentSecurityPolicyFromConfig().Policies;
     
 	new ContentSecurityPolicyHeaders(HttpContext.Current.Response.Headers)
 	    .AppendPolicy(policies["GoogleApi"]);
