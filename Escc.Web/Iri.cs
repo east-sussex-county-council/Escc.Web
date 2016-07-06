@@ -145,65 +145,6 @@ namespace Escc.Web
             return MakeAbsolute(relativeUri, HttpContext.Current.Request.Url);
         }
 
-        /// <summary>
-        /// Gets an abridged version of a URL formatted for display, not for use as a link
-        /// </summary>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        public static string ShortenForDisplay(Uri url)
-        {
-            return ShortenForDisplay(url, 60);
-        }
-
-        /// <summary>
-        /// Gets an abridged version of a URL formatted for display, not for use as a link
-        /// </summary>
-        /// <param name="url">The URL.</param>
-        /// <param name="maximumLength">The maximum length.</param>
-        /// <returns></returns>
-        public static string ShortenForDisplay(Uri url, int maximumLength)
-        {
-            // Start by getting the host without the protocol
-            url = MakeAbsolute(url, true);
-            StringBuilder urlString = new StringBuilder();
-            if (HttpContext.Current == null || url.Host != HttpContext.Current.Request.Url.Host) urlString.Append(url.Host);
-            if (!url.IsDefaultPort) urlString.Append(":" + url.Port);
-
-            // Alter maximumLength to reflect the maximum *remaining* length
-            maximumLength = maximumLength - urlString.Length;
-
-            // If it's too long, remove chunk by chunk from the start 
-            var path = url.PathAndQuery.TrimEnd('/');
-            var nextSlash = path.IndexOf("/", StringComparison.Ordinal);
-            var shortened = false;
-            while (path.Length > maximumLength && nextSlash > -1)
-            {
-                path = path.Substring(nextSlash + 1);
-                nextSlash = path.IndexOf("/", StringComparison.Ordinal);
-
-                // Note that the URL has been shortened, and will be prepended by a leading slash and ellipsis
-                if (!shortened)
-                {
-                    maximumLength = maximumLength - 3;
-                    shortened = true;
-                }
-            }
-            urlString.Append(shortened ? "/…/" + path : path);
-
-            // It's still too long, can we cut off the querystring?
-            if (urlString.Length > maximumLength)
-            {
-                var cutQuery = urlString.ToString();
-                var pos = cutQuery.IndexOf("?", StringComparison.Ordinal);
-                if (pos > -1)
-                {
-                    urlString = new StringBuilder(cutQuery.Remove(pos) + "?…");
-                }
-            }
-
-            return urlString.ToString();
-        }
-
         #endregion
 
         #region Generic functions to work with query strings
