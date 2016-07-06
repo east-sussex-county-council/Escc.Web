@@ -101,8 +101,12 @@
     <Compile Include="CorsPolicyFromConfig.cs" />
     <Compile Include="CorsPolicyFromConfigAttribute.cs" />
     <Compile Include="Http.cs" />
+    <Compile Include="IUrlExpirer.cs" />
+    <Compile Include="IUrlProtector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Iri.cs" />
+    <Compile Include="UrlExpirer.cs" />
+    <Compile Include="UrlProtector.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

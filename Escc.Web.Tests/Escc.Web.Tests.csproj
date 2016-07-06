@@ -50,7 +50,9 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
@@ -58,6 +60,8 @@
     <Compile Include="ContentSecurityPolicyTests.cs" />
     <Compile Include="CorsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UrlExpirerTests.cs" />
+    <Compile Include="UrlProtectorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Escc.Web\Escc.Web.csproj">
