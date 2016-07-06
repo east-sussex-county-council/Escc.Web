@@ -58,7 +58,9 @@ namespace Escc.Web
             if (utcTimestamp == null) throw new ArgumentNullException("urlToExpire");
 
             // Add current time, which can be used to expire the link
-            var expiringUrl = new Uri(Iri.PrepareUrlForNewQueryStringParameter(urlToExpire) + _timeParameter + "=" + utcTimestamp.ToUniversalTime().ToString("yyyyMMddHHmmss", CultureInfo.InvariantCulture), UriKind.Absolute);
+            var query = HttpUtility.ParseQueryString(urlToExpire.Query);
+            query.Add(_timeParameter, utcTimestamp.ToUniversalTime().ToString("yyyyMMddHHmmss", CultureInfo.InvariantCulture));
+            var expiringUrl = new Uri(urlToExpire.Scheme + "://" + urlToExpire.Authority + urlToExpire.AbsolutePath + "?" + query, UriKind.Absolute);
 
             // Protect the URI against tampering, otherwise expiry date can be circumvented
             return _urlProtector.ProtectQueryString(expiringUrl);
@@ -97,10 +99,10 @@ namespace Escc.Web
             if (!_urlProtector.CheckProtectedQueryString(urlToCheck)) return true;
 
             // Get the querystring in a usable form
-            var queryString = Iri.SplitQueryString(urlToCheck.Query);
+            var queryString = HttpUtility.ParseQueryString(urlToCheck.Query);
 
             // If time has been removed, expire link
-            if (!queryString.ContainsKey(_timeParameter)) return true;
+            if (String.IsNullOrEmpty(queryString[_timeParameter])) return true;
 
             var linkCreated = DateTime.SpecifyKind(DateTime.ParseExact(queryString[_timeParameter], "yyyyMMddHHmmss", CultureInfo.InvariantCulture), DateTimeKind.Utc);
             if (currentUtcTime.ToUniversalTime().Subtract(linkCreated).TotalSeconds > validForSeconds)

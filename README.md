@@ -1,13 +1,11 @@
 # Escc.Web
 
-A library for working with web standards such as HTTP and IRIs.
+A library for working with web standards such as HTTP and URLs.
 
 Features include:
 
 * [Making cross-origin requests for client-side files (CORS)](Cors.md)
 * Returning common HTTP redirect and error responses
-* Resolving relative URLs into absolute URLs
-* Splitting and combining the parts of a URL
 * [Abbreviate URLs into a version more suitable for display](UrlPresenter.md)
 * [Protecting a querystring from being tampered with](ProtectedQueryString.md)
 * [Giving URLs an expiry date](ExpireUrls.md)

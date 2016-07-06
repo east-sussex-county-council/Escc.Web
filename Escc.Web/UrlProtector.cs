@@ -2,6 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 
 namespace Escc.Web
 {
@@ -37,10 +38,13 @@ namespace Escc.Web
             if (!urlToProtect.IsAbsoluteUri) throw new ArgumentException("urlToProtect must be an absolute URI");
 
             // Build up current URL as a string ready to have extra query string parameters added
-            var protectedUrl = Iri.PrepareUrlForNewQueryStringParameter(urlToProtect);
+            var query = HttpUtility.ParseQueryString(urlToProtect.Query);
+            query.Add(_hashParameter, CreateUrlHash(urlToProtect.Query, _salt));
+            var protectedUrl = new Uri(urlToProtect.Scheme + "://" + urlToProtect.Authority + urlToProtect.AbsolutePath + "?" + query, UriKind.Absolute);
+
 
             // Hash the URI and add it as a parameter
-            return new Uri(protectedUrl + _hashParameter + "=" + CreateUrlHash(urlToProtect.Query, _salt), UriKind.Absolute);
+            return protectedUrl;
         }
 
 
@@ -55,10 +59,10 @@ namespace Escc.Web
             if (!protectedUrl.IsAbsoluteUri) throw new ArgumentException("protectedUrl must be an absolute URL", "protectedUrl");
 
             // Get the querystring in a usable form
-            var queryString = Iri.SplitQueryString(protectedUrl.Query);
+            var queryString = HttpUtility.ParseQueryString(protectedUrl.Query);
 
             // Check we got a hash, otherwise we know straight away it's not valid
-            if (!queryString.ContainsKey(_hashParameter)) return false;
+            if (String.IsNullOrEmpty(queryString[_hashParameter])) return false;
 
             // Make a new querystring without the protection parameter. This should be the original protected querystring.
             var protectedQueryString = new StringBuilder();

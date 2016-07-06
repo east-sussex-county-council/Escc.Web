@@ -54,7 +54,7 @@ namespace Escc.Web
             if (response == null) throw new ArgumentNullException("response");
 
             // RFC 2616 says the destination URL for the Location header must be absolute
-            var absoluteDestination = replacedByUrl.IsAbsoluteUri ? replacedByUrl : Iri.MakeAbsolute(replacedByUrl);
+            var absoluteDestination = replacedByUrl.IsAbsoluteUri ? replacedByUrl : new Uri(HttpContext.Current.Request.Url, replacedByUrl);
 
             // RFC 2616 says it must be a different URI (otherwise you'll get a redirect loop)
             if (absoluteDestination.ToString() == request.Url.ToString()) throw new ArgumentException("The request and destination URIs are the same", "replacedByUrl");
@@ -123,7 +123,7 @@ namespace Escc.Web
             if (response == null) throw new ArgumentNullException("response");
 
             // RFC 2616 says the destination URL for the Location header must be absolute
-            var absoluteDestination = destinationUrl.IsAbsoluteUri ? destinationUrl : Iri.MakeAbsolute(destinationUrl);
+            var absoluteDestination = destinationUrl.IsAbsoluteUri ? destinationUrl : new Uri(HttpContext.Current.Request.Url, destinationUrl);
 
             // RFC 2616 says it must be a different URI (otherwise you'll get a redirect loop)
             if (absoluteDestination.ToString() == request.Url.ToString())
