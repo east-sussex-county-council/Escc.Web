@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="ContentSecurityPolicyTests.cs" />
     <Compile Include="CorsTests.cs" />
+    <Compile Include="HttpStatusTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UrlExpirerTests.cs" />
     <Compile Include="UrlProtectorTests.cs" />

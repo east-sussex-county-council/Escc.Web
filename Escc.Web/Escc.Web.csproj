@@ -101,7 +101,7 @@
     <Compile Include="CorsPolicyFromConfig.cs" />
     <Compile Include="CorsPolicyFromConfigAttribute.cs" />
     <Compile Include="HttpCacheHeaders.cs" />
-    <Compile Include="Http.cs" />
+    <Compile Include="HttpStatus.cs" />
     <Compile Include="IHttpCacheHeaders.cs" />
     <Compile Include="UrlPresenter.cs" />
     <Compile Include="IUrlExpirer.cs" />
