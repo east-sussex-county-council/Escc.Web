@@ -100,7 +100,9 @@
     <Compile Include="CorsHeaders.cs" />
     <Compile Include="CorsPolicyFromConfig.cs" />
     <Compile Include="CorsPolicyFromConfigAttribute.cs" />
+    <Compile Include="HttpCacheHeaders.cs" />
     <Compile Include="Http.cs" />
+    <Compile Include="IHttpCacheHeaders.cs" />
     <Compile Include="UrlPresenter.cs" />
     <Compile Include="IUrlExpirer.cs" />
     <Compile Include="IUrlProtector.cs" />

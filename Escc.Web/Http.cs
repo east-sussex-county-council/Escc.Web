@@ -10,8 +10,6 @@ namespace Escc.Web
     /// </summary>
     public static class Http
     {
-        #region Status codes
-
         /// <summary>
         /// Sets the current response status to '301 Moved Permanently' and redirects to the specified URL
         /// </summary>
@@ -304,79 +302,5 @@ namespace Escc.Web
         {
             Status502BadGateway(HttpContext.Current.Response);
         }
-
-        #endregion
-        
-        #region HTTP caching
-
-        /// <summary>
-        /// Sets the current response to be cached for a given amount of time following the initial request, allowing both shared and private caches
-        /// </summary>
-        /// <param name="hours">The hours.</param>
-        /// <param name="minute">The minute.</param>
-        public static void CacheFor(int hours, int minute)
-        {
-            CacheFor(hours, minute, HttpContext.Current.Response);
-        }
-
-        /// <summary>
-        /// Sets a response to be cached for a given amount of time following the initial request, allowing both shared and private caches
-        /// </summary>
-        /// <param name="hours">The hours.</param>
-        /// <param name="minute">The minute.</param>
-        /// <param name="response">The response.</param>
-        public static void CacheFor(int hours, int minute, HttpResponse response)
-        {
-            if (response == null) throw new ArgumentNullException("response");
-
-            var freshUntil = DateTime.Now.AddHours(hours).AddMinutes(minute);
-            response.Cache.SetExpires(freshUntil);
-            response.Cache.SetMaxAge(freshUntil.Subtract(DateTime.Now));
-
-            // Allow caching on shared proxies as well as users' own browsers
-            response.Cache.SetCacheability(HttpCacheability.Public);
-        }
-
-        /// <summary>
-        /// Sets the current response to be cached for up to one day until the specified time, allowing both shared and private caches
-        /// </summary>
-        /// <param name="hour">The hour.</param>
-        /// <param name="minute">The minute.</param>
-        public static void CacheDaily(int hour, int minute)
-        {
-            CacheDaily(hour, minute, HttpContext.Current.Response);
-        }
-
-        /// <summary>
-        /// Sets a response to be cached for up to one day until the specified time, allowing both shared and private caches
-        /// </summary>
-        /// <param name="hour">The hour.</param>
-        /// <param name="minute">The minute.</param>
-        /// <param name="response">The response.</param>
-        public static void CacheDaily(int hour, int minute, HttpResponse response)
-        {
-            if (response == null) throw new ArgumentNullException("response");
-
-            // Are we before or after today's expiry time?
-            var expiryToday = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, hour, minute, 0);
-            if (DateTime.Now <= expiryToday)
-            {
-                response.Cache.SetExpires(expiryToday);
-                response.Cache.SetMaxAge(expiryToday.Subtract(DateTime.Now));
-            }
-            else
-            {
-                var tomorrow = DateTime.Today.AddDays(1);
-                var expiryTomorrow = new DateTime(tomorrow.Year, tomorrow.Month, tomorrow.Day, hour, minute, 0);
-                response.Cache.SetExpires(expiryTomorrow);
-                response.Cache.SetMaxAge(expiryTomorrow.Subtract(DateTime.Now));
-            }
-
-            // Allow caching on shared proxies as well as users' own browsers
-            response.Cache.SetCacheability(HttpCacheability.Public);
-        }
-
-        #endregion
-
     }
 }
