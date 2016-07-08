@@ -26,6 +26,7 @@ namespace EsccWebTeam.Data.Web
         /// <returns>An absolute URI</returns>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="ArgumentException"/>
+        [Obsolete("Use: new System.Uri(Uri, Uri)")]
         public static Uri MakeAbsolute(Uri relativeUri, Uri baseUri, bool ignoreBaseUriQueryString)
         {
             // Check arguments
@@ -108,6 +109,7 @@ namespace EsccWebTeam.Data.Web
         /// <returns>An absolute URI</returns>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="ArgumentException"/>
+        [Obsolete("Use: new System.Uri(Uri, Uri)")]
         public static Uri MakeAbsolute(Uri relativeUri, Uri baseUri)
         {
             return MakeAbsolute(relativeUri, baseUri, true);
@@ -121,6 +123,7 @@ namespace EsccWebTeam.Data.Web
         /// <returns>An absolute URI</returns>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="ArgumentException"/>
+        [Obsolete("Use: new System.Uri(Uri, Uri)")]
         public static Uri MakeAbsolute(Uri relativeUri, bool ignoreBaseUriQueryString)
         {
             // If we can return without attempting to access HttpContext.Current then do so
@@ -137,6 +140,7 @@ namespace EsccWebTeam.Data.Web
         /// <exception cref="ArgumentNullException" />
         /// <exception cref="ArgumentException" />
         /// <exception cref="System.Security.SecurityException">Thrown if this assembly is not granted <see cref="System.Web.AspNetHostingPermission"/> to access the current HTTP request</exception>
+        [Obsolete("Use: new System.Uri(Uri, Uri)")]
         public static Uri MakeAbsolute(Uri relativeUri)
         {
             // If we can return without attempting to access HttpContext.Current then do so
@@ -150,6 +154,7 @@ namespace EsccWebTeam.Data.Web
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
+        [Obsolete("Use the Escc.Html NuGet package")]
         public static string ShortenForDisplay(Uri url)
         {
             return ShortenForDisplay(url, 60);
@@ -161,6 +166,7 @@ namespace EsccWebTeam.Data.Web
         /// <param name="url">The URL.</param>
         /// <param name="maximumLength">The maximum length.</param>
         /// <returns></returns>
+        [Obsolete("Use the Escc.Html NuGet package")]
         public static string ShortenForDisplay(Uri url, int maximumLength)
         {
             // Start by getting the host without the protocol
@@ -214,6 +220,7 @@ namespace EsccWebTeam.Data.Web
         /// <param name="hashParameter">Name of the querystring parameter used to store the hash that prevents the time being modified.</param>
         /// <param name="timeParameter">Name of the querystring parameter used to store when the link was created.</param>
         /// <returns></returns>
+        [Obsolete("Use the Escc.Web NuGet package")]
         public static Uri ExpireUrl(Uri urlToExpire, string hashParameter, string timeParameter)
         {
             if (urlToExpire == null) throw new ArgumentNullException("urlToExpire");
@@ -236,6 +243,7 @@ namespace EsccWebTeam.Data.Web
         /// <returns>
         /// 	<c>true</c> if the URL has expired; otherwise, <c>false</c>.
         /// </returns>
+        [Obsolete("Use the Escc.Web NuGet package")]
         public static bool HasUrlExpired(Uri urlToCheck, string hashParameter, string timeParameter, int validForSeconds)
         {
             if (urlToCheck == null) throw new ArgumentNullException("urlToCheck");
@@ -266,6 +274,7 @@ namespace EsccWebTeam.Data.Web
         /// <param name="urlToProtect">The URL to protect.</param>
         /// <param name="hashParameter">Name of the querystring parameter used to store the hash.</param>
         /// <returns></returns>
+        [Obsolete("Use the Escc.Web NuGet package")]
         public static Uri ProtectQueryString(Uri urlToProtect, string hashParameter)
         {
             if (urlToProtect == null) throw new ArgumentNullException("urlToProtect");
@@ -285,6 +294,7 @@ namespace EsccWebTeam.Data.Web
         /// <param name="protectedUrl">The protected URL.</param>
         /// <param name="hashParameter">Name of the querystring parameter used to store the hash.</param>
         /// <returns></returns>
+        [Obsolete("Use the Escc.Web NuGet package")]
         public static bool CheckProtectedQueryString(Uri protectedUrl, string hashParameter)
         {
             if (protectedUrl == null) throw new ArgumentNullException("protectedUrl");
@@ -352,6 +362,7 @@ namespace EsccWebTeam.Data.Web
         /// </summary>
         /// <param name="queryString">The query string.</param>
         /// <returns></returns>
+        [Obsolete("Use System.Web.HttpUtility.ParseQueryString")]
         public static Dictionary<string, string> SplitQueryString(string queryString)
         {
             var dictionary = new Dictionary<string, string>();
@@ -387,6 +398,7 @@ namespace EsccWebTeam.Data.Web
         /// <param name="urlToEdit">The URL to edit.</param>
         /// <param name="parameterName">Parameter key</param>
         /// <returns>Updated URL</returns>
+        [Obsolete("Use System.Web.HttpUtility.ParseQueryString")]
         public static Uri RemoveQueryStringParameter(Uri urlToEdit, string parameterName)
         {
             if (urlToEdit == null) throw new ArgumentNullException("urlToEdit");
@@ -434,6 +446,7 @@ namespace EsccWebTeam.Data.Web
         /// </summary>
         /// <param name="urlToPrepare">The URL to prepare.</param>
         /// <returns></returns>
+        [Obsolete("Use System.Web.HttpUtility.ParseQueryString")]
         public static string PrepareUrlForNewQueryStringParameter(Uri urlToPrepare)
         {
             if (urlToPrepare == null) throw new ArgumentNullException("urlToPrepare");

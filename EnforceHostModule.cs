@@ -9,6 +9,7 @@ namespace EsccWebTeam.Data.Web
     /// <summary>
     /// Ensures that the current request uses the correct host
     /// </summary>
+    [Obsolete("Use IIS Rewrite")]
     public class EnforceHostModule : IHttpModule
     {
         /// <summary>

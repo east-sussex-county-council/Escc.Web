@@ -7,6 +7,7 @@ namespace EsccWebTeam.Data.Web
     /// <summary>
     /// Cross-origin resource sharing (CORS) allows JavaScript on a web page to make XMLHttpRequests to another domain, not the domain the JavaScript originated from
     /// </summary>
+    [Obsolete("For .NET 4.5.2 and above, use the Escc.Web NuGet package")]
     public static class Cors
     {
         /// <summary>

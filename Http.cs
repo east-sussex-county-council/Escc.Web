@@ -19,6 +19,7 @@ namespace EsccWebTeam.Data.Web
         /// </summary>
         /// <param name="replacedByUrl">The replacement URL.</param>
         /// <remarks>See <seealso cref="Status301MovedPermanently(Uri, HttpRequest, HttpResponse)"/> for more details.</remarks>
+        [Obsolete("For .NET 4.5.2 and above, use the Escc.Web NuGet package")]
         public static void Status301MovedPermanently(string replacedByUrl)
         {
             Status301MovedPermanently(new Uri(replacedByUrl, UriKind.RelativeOrAbsolute), HttpContext.Current.Request, HttpContext.Current.Response);
@@ -29,6 +30,7 @@ namespace EsccWebTeam.Data.Web
         /// </summary>
         /// <param name="replacedByUrl">The replacement URL.</param>
         /// <remarks>See <seealso cref="Status301MovedPermanently(Uri, HttpRequest, HttpResponse)"/> for more details.</remarks>
+        [Obsolete("For .NET 4.5.2 and above, use the Escc.Web NuGet package")]
         public static void Status301MovedPermanently(Uri replacedByUrl)
         {
             Status301MovedPermanently(replacedByUrl, HttpContext.Current.Request, HttpContext.Current.Response);
@@ -49,6 +51,7 @@ namespace EsccWebTeam.Data.Web
         /// 	<para><c>The new permanent URI SHOULD be given by the Location field in the response. Unless the request method was HEAD, 
         /// 	the entity of the response SHOULD contain a short hypertext note with a hyperlink to the new URI(s).</c></para>
         /// </remarks>
+        [Obsolete("For .NET 4.5.2 and above, use the Escc.Web NuGet package")]
         public static void Status301MovedPermanently(Uri replacedByUrl, HttpRequest request, HttpResponse response)
         {
             if (replacedByUrl == null) throw new ArgumentNullException("replacedByUrl");
@@ -88,6 +91,7 @@ namespace EsccWebTeam.Data.Web
         /// </summary>
         /// <param name="destinationUrl">The destination URL.</param>
         /// <remarks>See <seealso cref="Status303SeeOther(Uri, HttpRequest, HttpResponse)"/> for more details.</remarks>
+        [Obsolete("For .NET 4.5.2 and above, use the Escc.Web NuGet package")]
         public static void Status303SeeOther(string destinationUrl)
         {
             Status303SeeOther(new Uri(destinationUrl, UriKind.RelativeOrAbsolute), HttpContext.Current.Request, HttpContext.Current.Response);
@@ -98,6 +102,7 @@ namespace EsccWebTeam.Data.Web
         /// </summary>
         /// <param name="destinationUrl">The destination URL.</param>
         /// <remarks>See <seealso cref="Status303SeeOther(Uri, HttpRequest, HttpResponse)"/> for more details.</remarks>
+        [Obsolete("For .NET 4.5.2 and above, use the Escc.Web NuGet package")]
         public static void Status303SeeOther(Uri destinationUrl)
         {
             Status303SeeOther(destinationUrl, HttpContext.Current.Request, HttpContext.Current.Response);
@@ -118,6 +123,7 @@ namespace EsccWebTeam.Data.Web
         /// 	<para><c>The different URI SHOULD be given by the Location field in the response. Unless the request method was HEAD, the entity of
         /// the response SHOULD contain a short hypertext note with a hyperlink to the new URI(s).</c></para>
         /// </remarks>
+        [Obsolete("For .NET 4.5.2 and above, use the Escc.Web NuGet package")]
         public static void Status303SeeOther(Uri destinationUrl, HttpRequest request, HttpResponse response)
         {
             if (destinationUrl == null) throw new ArgumentNullException("destinationUrl");
@@ -158,6 +164,7 @@ namespace EsccWebTeam.Data.Web
         /// Sets the current response status to '310 Gone' meaning the requested resource has been removed permanently and no forwarding address is known. If the resource may come back, use 404 Not Found.
         /// </summary>
         /// <remarks>See <seealso cref="Status310Gone(HttpResponse)"/> for more details.</remarks>
+        [Obsolete("For .NET 4.5.2 and above, use the Escc.Web NuGet package")]
         public static void Status310Gone()
         {
             Status310Gone(HttpContext.Current.Response);
@@ -173,6 +180,7 @@ namespace EsccWebTeam.Data.Web
         /// 	Clients with link editing capabilities SHOULD delete references to the Request-URI after user approval. If the server does not know, or has no facility to determine, 
         /// 	whether or not the condition is permanent, the status code 404 (Not Found) SHOULD be used instead. This response is cacheable unless indicated otherwise.</c></para>
         /// </remarks>
+        [Obsolete("For .NET 4.5.2 and above, use the Escc.Web NuGet package")]
         public static void Status310Gone(HttpResponse response)
         {
             if (response == null) throw new ArgumentNullException("response");
@@ -185,6 +193,7 @@ namespace EsccWebTeam.Data.Web
         /// Sets the current response status to '400 Bad Request' due to malformed syntax. The client SHOULD NOT repeat the request without modifications.
         /// </summary>
         /// <remarks>See <seealso cref="Status400BadRequest(HttpResponse)"/> for more details.</remarks>
+        [Obsolete("For .NET 4.5.2 and above, use the Escc.Web NuGet package")]
         public static void Status400BadRequest()
         {
             Status400BadRequest(HttpContext.Current.Response);
@@ -198,6 +207,7 @@ namespace EsccWebTeam.Data.Web
         /// 	<para>Implements RFC2616:</para>
         /// 	<para><c>The request could not be understood by the server due to malformed syntax. The client SHOULD NOT repeat the request without modifications.</c></para>
         /// </remarks>
+        [Obsolete("For .NET 4.5.2 and above, use the Escc.Web NuGet package")]
         public static void Status400BadRequest(HttpResponse response)
         {
             if (response == null) throw new ArgumentNullException("response");
@@ -210,6 +220,7 @@ namespace EsccWebTeam.Data.Web
         /// Sets the current response status to '404 Not Found' when the page is not found, or hidden for some reason.
         /// </summary>
         /// <remarks>See <seealso cref="Status404NotFound(HttpResponse)"/> for more details.</remarks>
+        [Obsolete("For .NET 4.5.2 and above, use the Escc.Web NuGet package")]
         public static void Status404NotFound()
         {
             Status404NotFound(HttpContext.Current.Response);
@@ -226,6 +237,7 @@ namespace EsccWebTeam.Data.Web
         /// 	unavailable and has no forwarding address. This status code is commonly used when the server does not wish to reveal exactly why the request has 
         /// 	been refused, or when no other response is applicable.</c></para>
         /// </remarks>
+        [Obsolete("For .NET 4.5.2 and above, use the Escc.Web NuGet package")]
         public static void Status404NotFound(HttpResponse response)
         {
             if (response == null) throw new ArgumentNullException("response");
@@ -238,6 +250,7 @@ namespace EsccWebTeam.Data.Web
         /// Sets the current response status to '500 Internal Server Error' indicating an unexpected error.
         /// </summary>
         /// <remarks>See <seealso cref="Status400BadRequest(HttpResponse)"/> for more details.</remarks>
+        [Obsolete("For .NET 4.5.2 and above, use the Escc.Web NuGet package")]
         public static void Status500InternalServerError()
         {
             Status500InternalServerError(HttpContext.Current.Response);
@@ -251,6 +264,7 @@ namespace EsccWebTeam.Data.Web
         /// 	<para>Implements RFC2616:</para>
         /// 	<para><c>The server encountered an unexpected condition which prevented it from fulfilling the request.</c></para>
         /// </remarks>
+        [Obsolete("For .NET 4.5.2 and above, use the Escc.Web NuGet package")]
         public static void Status500InternalServerError(HttpResponse response)
         {
             if (response == null) throw new ArgumentNullException("response");
@@ -288,6 +302,7 @@ namespace EsccWebTeam.Data.Web
         ///     <para><c>The server, while acting as a gateway or proxy, received an invalid response from the upstream server it accessed in attempting to fulfill the request.</c></para>
         /// </remarks>
         /// <param name="response">The response.</param>
+        [Obsolete("For .NET 4.5.2 and above, use the Escc.Web NuGet package")]
         public static void Status502BadGateway(HttpResponse response)
         {
             if (response == null) throw new ArgumentNullException("response");
@@ -302,6 +317,7 @@ namespace EsccWebTeam.Data.Web
         /// Sets the supplied response status to '502 Bad Gateway' meaning it's not our fault; a service called by the page failed.
         /// </summary>
         /// <remarks>See <seealso cref="Status502BadGateway(HttpResponse)"/> for more details.</remarks>
+        [Obsolete("For .NET 4.5.2 and above, use the Escc.Web NuGet package")]
         public static void Status502BadGateway()
         {
             Status502BadGateway(HttpContext.Current.Response);
@@ -407,6 +423,7 @@ namespace EsccWebTeam.Data.Web
         /// </summary>
         /// <param name="hours">The hours.</param>
         /// <param name="minute">The minute.</param>
+        [Obsolete("For .NET 4.5.2 and above, use the Escc.Web NuGet package")]
         public static void CacheFor(int hours, int minute)
         {
             CacheFor(hours, minute, HttpContext.Current.Response);
@@ -418,6 +435,7 @@ namespace EsccWebTeam.Data.Web
         /// <param name="hours">The hours.</param>
         /// <param name="minute">The minute.</param>
         /// <param name="response">The response.</param>
+        [Obsolete("For .NET 4.5.2 and above, use the Escc.Web NuGet package")]
         public static void CacheFor(int hours, int minute, HttpResponse response)
         {
             if (response == null) throw new ArgumentNullException("response");
@@ -435,6 +453,7 @@ namespace EsccWebTeam.Data.Web
         /// </summary>
         /// <param name="hour">The hour.</param>
         /// <param name="minute">The minute.</param>
+        [Obsolete("For .NET 4.5.2 and above, use the Escc.Web NuGet package")]
         public static void CacheDaily(int hour, int minute)
         {
             CacheDaily(hour, minute, HttpContext.Current.Response);
@@ -446,6 +465,7 @@ namespace EsccWebTeam.Data.Web
         /// <param name="hour">The hour.</param>
         /// <param name="minute">The minute.</param>
         /// <param name="response">The response.</param>
+        [Obsolete("For .NET 4.5.2 and above, use the Escc.Web NuGet package")]
         public static void CacheDaily(int hour, int minute, HttpResponse response)
         {
             if (response == null) throw new ArgumentNullException("response");

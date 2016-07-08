@@ -11,6 +11,7 @@ namespace EsccWebTeam.Data.Web
     /// <summary>
     /// Ensures that the current request uses the correct protocol - either HTTP or HTTPS
     /// </summary>
+    [Obsolete("Use IIS Rewrite")]
     public class EnforceProtocolModule : IHttpModule
     {
         private List<string> errors = new List<string>();

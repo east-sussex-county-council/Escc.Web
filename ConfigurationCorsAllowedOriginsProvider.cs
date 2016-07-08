@@ -8,6 +8,7 @@ namespace EsccWebTeam.Data.Web
     /// <summary>
     /// Gets configuration for the remote master page from web.config
     /// </summary>
+    [Obsolete("For .NET 4.5.2 and above, use the Escc.Web NuGet package")]
     public class ConfigurationCorsAllowedOriginsProvider : ICorsAllowedOriginsProvider
     {
         /// <summary>

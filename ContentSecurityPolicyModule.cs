@@ -6,6 +6,7 @@ namespace EsccWebTeam.Data.Web
     /// <summary>
     /// HTTP module to apply a default content security policy, loaded from web.config. See <see cref="ContentSecurityPolicy" /> for details.
     /// </summary>
+    [Obsolete("For .NET 4.5.2 and above, use the Escc.Web NuGet package")]
     public class ContentSecurityPolicyModule : IHttpModule
     {
         #region IHttpModule Members

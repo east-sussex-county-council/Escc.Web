@@ -12,6 +12,7 @@ namespace EsccWebTeam.Data.Web
     /// <summary>
     /// A Content Security Policy restricts which resources a web page can load, protecting against risks such as cross-site scripting.
     /// </summary>
+    [Obsolete("For .NET 4.5.2 and above, use the Escc.Web NuGet package")]
     public class ContentSecurityPolicy
     {
         private readonly Dictionary<string, IList> _parsedPolicy = new Dictionary<string, IList>();
