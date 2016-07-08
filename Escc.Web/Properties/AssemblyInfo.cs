@@ -8,7 +8,7 @@ using System.Security;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Escc.Web")]
-[assembly: AssemblyDescription("Work with web standards such as HTTP and IRIs")]
+[assembly: AssemblyDescription("Work with web standards such as HTTP, CORS and Content Security Policy")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("East Sussex County Council")]
 [assembly: AssemblyProduct("Escc.Web")]
