@@ -1,20 +1,27 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Configuration;
-using System.Net.Http.Headers;
 using System.Text;
-using System.Web;
 
 namespace Escc.Web
 {
     /// <summary>
     /// A Content Security Policy restricts which resources a web page can load, protecting against risks such as cross-site scripting.
     /// </summary>
-    public class ContentSecurityPolicy
+    public class ContentSecurityPolicy : IContentSecurityPolicy
     {
         private readonly Dictionary<string, IList> _parsedPolicy = new Dictionary<string, IList>();
+
+        /// <summary>
+        /// Appends a new Content Security Policy to the existing policy, and returns the updated policy.
+        /// </summary>
+        /// <param name="policy">The policy.</param>
+        /// <returns></returns>
+        public ContentSecurityPolicy AppendPolicy(ContentSecurityPolicy policy)
+        {
+            if (policy != null) this.ParsePolicy(policy.ToString());
+            return this;
+        }
 
         /// <summary>
         /// Appends a new Content Security Policy to the existing policy, and returns the updated policy.

@@ -11,7 +11,7 @@ namespace Escc.Web
     /// <summary>
     /// Cross-origin resource sharing (CORS) allows JavaScript on a web page to make XMLHttpRequests to another domain, not the domain the JavaScript originated from
     /// </summary>
-    public class CorsHeaders
+    public class CorsHeaders : ICorsHeaders
     {
         private readonly NameValueCollection _requestHeadersCollection;
         private readonly NameValueCollection _responseHeadersCollection;

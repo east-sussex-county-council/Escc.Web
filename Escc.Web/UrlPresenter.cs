@@ -6,8 +6,18 @@ namespace Escc.Web
     /// <summary>
     /// Modify URLs for presentation to users, not for use as links
     /// </summary>
-    public class UrlPresenter
+    public class UrlPresenter : IUrlPresenter
     {
+        /// <summary>
+        /// Gets an abridged version of an absolute URL with a maximum of 60 characters, which may not work as a link
+        /// </summary>
+        /// <param name="urlToAbbreviate">The URL to abbreviate.</param>
+        /// <returns></returns>
+        public string AbbreviateUrl(Uri urlToAbbreviate)
+        {
+            return AbbreviateUrl(urlToAbbreviate, null);
+        }
+        
         /// <summary>
         /// Gets an abridged version of a URL with a maximum of 60 characters, which may not work as a link
         /// </summary>

@@ -10,7 +10,7 @@ namespace Escc.Web
     /// <summary>
     /// Determines whether to apply a Content Security Policy by matching against a list of excluded URLs
     /// </summary>
-    public class ContentSecurityPolicyUrlFilter
+    public class ContentSecurityPolicyUrlFilter : IContentSecurityPolicyFilter
     {
         private readonly Uri _targetUrl;
         private readonly IList<Uri> _urlsToExclude;

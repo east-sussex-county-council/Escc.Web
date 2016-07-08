@@ -8,7 +8,7 @@ namespace Escc.Web
     /// <summary>
     /// Read and update the <c>Content-Security-Policy</c> header of an HTTP response
     /// </summary>
-    public class ContentSecurityPolicyHeaders
+    public class ContentSecurityPolicyHeaders : IContentSecurityPolicyHeaders
     {
         private readonly NameValueCollection _responseHeadersCollection;
         private readonly HttpHeaders _responseHeadersObject;
@@ -69,6 +69,17 @@ namespace Escc.Web
         public ContentSecurityPolicyHeaders AppendPolicy(string policy)
         {
             _policy.AppendPolicy(policy);
+            return this;
+        }
+
+        /// <summary>
+        /// Appends a Content Security Policy to the existing policy.
+        /// </summary>
+        /// <param name="policy">The policy.</param>
+        /// <returns></returns>
+        public ContentSecurityPolicyHeaders AppendPolicy(ContentSecurityPolicy policy)
+        {
+            _policy.AppendPolicy(policy.ToString());
             return this;
         }
 

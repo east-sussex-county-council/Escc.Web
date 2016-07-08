@@ -6,9 +6,9 @@ using System.Web;
 namespace Escc.Web
 {
     /// <summary>
-    /// Methods for working with elements of the HTTP web protocol
+    /// Configure common HTTP response statuses in a way which complies with HTTP 1.1 in RFC2116
     /// </summary>
-    public class HttpStatus
+    public class HttpStatus : IHttpStatus
     {
         /// <summary>
         /// Sets the current response status to '301 Moved Permanently' and redirects to the specified URL using HttpContext.Current
