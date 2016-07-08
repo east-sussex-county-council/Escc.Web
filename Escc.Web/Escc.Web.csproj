@@ -108,8 +108,6 @@
     <Compile Include="ICorsHeaders.cs" />
     <Compile Include="IHttpCacheHeaders.cs" />
     <Compile Include="IHttpStatus.cs" />
-    <Compile Include="IUrlPresenter.cs" />
-    <Compile Include="UrlPresenter.cs" />
     <Compile Include="IUrlExpirer.cs" />
     <Compile Include="IUrlProtector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
