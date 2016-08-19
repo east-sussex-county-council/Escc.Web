@@ -77,6 +77,8 @@ namespace Escc.Web
         {
             // Try current and backwards-compatible setting names
             var settings = ReadSettings();
+            if (settings == null) return new string[0];
+
             var policyNames = settings["PoliciesToApply"];
             if (String.IsNullOrEmpty(policyNames)) policyNames = settings["Apply"];
 
@@ -91,6 +93,8 @@ namespace Escc.Web
         {
             // Try current and backwards-compatible setting names
             var settings = ReadSettings();
+            if (settings == null) return new Uri[0];
+
             var urlsToExclude = settings["UrlsToExclude"];
             if (String.IsNullOrEmpty(urlsToExclude)) urlsToExclude = settings["None"];
 
