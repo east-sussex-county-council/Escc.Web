@@ -4,7 +4,7 @@ If you use JavaScript to request certain restricted file types from other domain
 
 If the origin the files are being requested from is expecting the request, it can serve an HTTP header containing the name of the requesting domain, and the request is then allowed. See [Cross-origin resource sharing on WikiPedia](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) for more detail.
 
-Using this project you can add a semi-colon-separated list of allowed domains in `web.config`:
+Using this project you can add a semi-colon-separated list of allowed domains in `web.config`. This can contain a wildcard for the port number:
 
 	<configSections>
 	  <sectionGroup name="Escc.Web">
@@ -14,7 +14,7 @@ Using this project you can add a semi-colon-separated list of allowed domains in
 	
 	<Escc.Web>
 	  <Cors>
-	    <add key="AllowedOrigins" value="https://subdomain1.example.org;https://subdomain2.example.org" />
+	    <add key="AllowedOrigins" value="https://subdomain1.example.org;https://subdomain2.example.org;https://localhost:*" />
 	  </Cors>
 	</Escc.Web>
 

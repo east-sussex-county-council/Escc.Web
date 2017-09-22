@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Security;
+using System.Text.RegularExpressions;
 using System.Web.Cors;
 
 namespace Escc.Web
@@ -94,13 +95,30 @@ namespace Escc.Web
             if (String.IsNullOrEmpty(requestOrigin)) return;
 
             // Is the origin in the list of allowed origins?
-            var allowedOrigin = corsPolicy.Origins.Contains(requestOrigin.ToLowerInvariant());
+            var allowedOrigin = IsAllowedOrigin(corsPolicy.Origins, requestOrigin);
 
             // If it is, echo back the origin as a CORS header
             if (allowedOrigin)
             {
                 responseHeaders.Add("Access-Control-Allow-Origin", requestOrigin);
             }
+        }
+
+        private static bool IsAllowedOrigin(IList<string> allowedOrigins, string requestOrigin)
+        {
+            requestOrigin = requestOrigin.ToLowerInvariant();
+            var allowedOrigin = allowedOrigins.Contains(requestOrigin);
+            if (!allowedOrigin)
+            {
+                // Allow a wildcard for the port number
+                var match = Regex.Match(requestOrigin, ":[0-9]+$");
+                if (match.Success)
+                {
+                    requestOrigin = requestOrigin.Substring(0, requestOrigin.Length - match.Length) + ":*";
+                    allowedOrigin = allowedOrigins.Contains(requestOrigin);
+                }
+            }
+            return allowedOrigin;
         }
 
         [SecuritySafeCritical]
@@ -119,7 +137,7 @@ namespace Escc.Web
             if (String.IsNullOrEmpty(requestOrigin)) return;
 
             // Is the origin in the list of allowed origins?
-            var allowedOrigin = corsPolicy.Origins.Contains(requestOrigin.ToLowerInvariant());
+            var allowedOrigin = IsAllowedOrigin(corsPolicy.Origins, requestOrigin);
 
             // If it is, echo back the origin as a CORS header
             if (allowedOrigin)
