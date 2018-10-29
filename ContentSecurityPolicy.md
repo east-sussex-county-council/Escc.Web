@@ -12,6 +12,14 @@ Apply a default policy across a website using an HTTP module:
 	    <section name="ContentSecurityPolicies" type="System.Configuration.NameValueSectionHandler, System, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
 	  </sectionGroup>
 	</configSections>
+
+	<system.web>
+	    <compilation targetFramework="4.7.2">
+	      <assemblies>
+	        <add assembly="System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+	      </assemblies>
+	    </compilation>
+	</system.web>
 	
 	<Escc.Web>
 	  <ContentSecurityPolicies>

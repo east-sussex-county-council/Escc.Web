@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Escc.Web", "Escc.Web\Escc.Web.csproj", "{9C56D3DD-4952-4A1B-9AD6-907A1142872F}"
 EndProject
@@ -19,8 +19,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Escc.Web.Tests", "Escc.Web.Tests\Escc.Web.Tests.csproj", "{EDBFB58C-C14E-4E0C-B868-13EB3CD203CC}"
 EndProject
-Project("{E09DD79A-4488-4AB9-8D3F-A7EEE78BF432}") = "Escc.Web.NuGet", "Escc.Web.NuGet\Escc.Web.NuGet.nuproj", "{9323C93B-1C7F-42CF-A7FC-549B9570AB6A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,12 +33,11 @@ Global
 		{EDBFB58C-C14E-4E0C-B868-13EB3CD203CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDBFB58C-C14E-4E0C-B868-13EB3CD203CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDBFB58C-C14E-4E0C-B868-13EB3CD203CC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9323C93B-1C7F-42CF-A7FC-549B9570AB6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9323C93B-1C7F-42CF-A7FC-549B9570AB6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9323C93B-1C7F-42CF-A7FC-549B9570AB6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9323C93B-1C7F-42CF-A7FC-549B9570AB6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7F7DA583-BA19-403C-ADEF-2450A0CAD7D6}
 	EndGlobalSection
 EndGlobal

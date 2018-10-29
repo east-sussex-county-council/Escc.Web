@@ -10,5 +10,3 @@ Features include:
 * [Protecting a querystring from being tampered with](ProtectedQueryString.md)
 * [Giving URLs an expiry date](ExpireUrls.md)
 * [Applying a content security policy](ContentSecurityPolicy.md)
-
-The NuGet package is created using [NuBuild](https://github.com/bspell1/NuBuild) for Visual Studio.
