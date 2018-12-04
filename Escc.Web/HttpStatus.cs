@@ -301,7 +301,7 @@ namespace Escc.Web
         }
 
         /// <summary>
-        /// Sets the current response status to '310 Gone' meaning the requested resource has been removed permanently and no forwarding address is known. If the resource may come back, use 404 Not Found. Uses HttpContext.Current.
+        /// Sets the current response status to '410 Gone' meaning the requested resource has been removed permanently and no forwarding address is known. If the resource may come back, use 404 Not Found. Uses HttpContext.Current.
         /// </summary>
         /// <remarks>See <seealso cref="Gone(HttpResponse)"/> for more details.</remarks>
         public void Gone()
@@ -310,7 +310,7 @@ namespace Escc.Web
         }
 
         /// <summary>
-        /// Sets the supplied response status to '310 Gone' meaning the requested resource has been removed permanently and no forwarding address is known. If the resource may come back, use 404 Not Found.
+        /// Sets the supplied response status to '410 Gone' meaning the requested resource has been removed permanently and no forwarding address is known. If the resource may come back, use 404 Not Found.
         /// </summary>
         /// <param name="response">The response.</param>
         /// <remarks>
@@ -323,12 +323,12 @@ namespace Escc.Web
         {
             if (response == null) throw new ArgumentNullException("response");
 
-            response.Status = "310 Gone";
-            response.StatusCode = 310;
+            response.Status = "410 Gone";
+            response.StatusCode = 410;
         }
 
         /// <summary>
-        /// Sets the supplied response status to '310 Gone' meaning the requested resource has been removed permanently and no forwarding address is known. If the resource may come back, use 404 Not Found.
+        /// Sets the supplied response status to '410 Gone' meaning the requested resource has been removed permanently and no forwarding address is known. If the resource may come back, use 404 Not Found.
         /// </summary>
         /// <param name="response">The response.</param>
         /// <remarks>
@@ -341,8 +341,8 @@ namespace Escc.Web
         {
             if (response == null) throw new ArgumentNullException("response");
 
-            response.Status = "310 Gone";
-            response.StatusCode = 310;
+            response.Status = "410 Gone";
+            response.StatusCode = 410;
         }
 
         /// <summary>

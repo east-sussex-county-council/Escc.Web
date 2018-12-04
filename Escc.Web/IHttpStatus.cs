@@ -157,13 +157,13 @@ namespace Escc.Web
           void SeeOther(Uri requestUrl, string requestMethod, Uri destinationUrl, HttpResponseBase response);
 
           /// <summary>
-          /// Sets the current response status to '310 Gone' meaning the requested resource has been removed permanently and no forwarding address is known. If the resource may come back, use 404 Not Found.
+          /// Sets the current response status to '410 Gone' meaning the requested resource has been removed permanently and no forwarding address is known. If the resource may come back, use 404 Not Found.
           /// </summary>
           /// <remarks>See <seealso cref="Gone(HttpResponse)"/> for more details.</remarks>
           void Gone();
 
           /// <summary>
-          /// Sets the supplied response status to '310 Gone' meaning the requested resource has been removed permanently and no forwarding address is known. If the resource may come back, use 404 Not Found.
+          /// Sets the supplied response status to '410 Gone' meaning the requested resource has been removed permanently and no forwarding address is known. If the resource may come back, use 404 Not Found.
           /// </summary>
           /// <param name="response">The response.</param>
           /// <remarks>
@@ -175,7 +175,7 @@ namespace Escc.Web
           void Gone(HttpResponse response);
 
           /// <summary>
-          /// Sets the supplied response status to '310 Gone' meaning the requested resource has been removed permanently and no forwarding address is known. If the resource may come back, use 404 Not Found.
+          /// Sets the supplied response status to '410 Gone' meaning the requested resource has been removed permanently and no forwarding address is known. If the resource may come back, use 404 Not Found.
           /// </summary>
           /// <param name="response">The response.</param>
           /// <remarks>
